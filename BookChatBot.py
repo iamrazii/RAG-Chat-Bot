@@ -34,7 +34,7 @@ def setup(pdf_path):
     vector_store = Chroma(
         embedding_function=embeddings,
         persist_directory=None,  
-        collection_name="pdf-chat"
+        collection_name="pdf-chat",
         client_settings=client_settings
     )
     vector_store.add_documents(chunks)
