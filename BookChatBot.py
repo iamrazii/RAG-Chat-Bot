@@ -1,5 +1,5 @@
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_chroma import Chroma
+from langchain.vectorstores import FAISS
 from langchain_google_genai import GoogleGenerativeAIEmbeddings, ChatGoogleGenerativeAI
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_community.retrievers import BM25Retriever
@@ -11,6 +11,7 @@ from dotenv import load_dotenv
 import os
 
 import nest_asyncio
+
 nest_asyncio.apply()
 
 load_dotenv()
@@ -25,17 +26,16 @@ def setup(pdf_path):
 
     embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
 
-    vector_store = Chroma(
-        embedding_function=embeddings,
-        persist_directory=None,  # Use in-memory (stateless) DB
-        collection_name="pdf-chat"
-    )
-    vector_store.add_documents(chunks)
+    # FAISS Vector Store
+    vector_store = FAISS.from_documents(chunks, embedding=embeddings)
 
+    # BM25 for sparse retrieval
     bm25 = BM25Retriever.from_documents(chunks)
-    bm25.k = 5
+    bm25.k = 8
+
+    # Hybrid Retriever (FAISS + BM25)
     hybrid_retriever = EnsembleRetriever(
-        retrievers=[vector_store.as_retriever(search_kwargs={"k": 5}), bm25],
+        retrievers=[vector_store.as_retriever(search_kwargs={"k": 8}), bm25],
         weights=[0.5, 0.5]
     )
 
