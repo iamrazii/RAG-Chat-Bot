@@ -3,6 +3,8 @@ langchain>=0.1.14
 langchain-core
 langchain-community
 langchain-google-genai
+langchain-chroma
+
 
 # Vector Store & Retrieval
 chromadb
