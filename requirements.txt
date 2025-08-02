@@ -1,0 +1,35 @@
+# Core LangChain
+langchain>=0.1.14
+langchain-core
+langchain-community
+langchain-google-genai
+
+# Vector Store & Retrieval
+chromadb
+tiktoken
+rank-bm25
+
+# PDF Loading
+PyMuPDF  # used by PyPDFLoader
+
+# Prompts and parsing
+pydantic>=1.10,<3.0
+
+# Web App Frontend
+streamlit
+
+# Environment Variables
+python-dotenv
+
+# Google AI client
+google-generativeai
+
+# gRPC & auth for Google APIs
+grpcio>=1.60.0
+grpcio-status
+google-api-core>=2.11.0
+google-auth>=2.20.0
+protobuf>=4.25.0
+
+# Async event loop ptaching
+nest_asyncio
