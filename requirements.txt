@@ -10,6 +10,8 @@ langchain-chroma
 chromadb
 tiktoken
 rank-bm25
+pysqlite3-binary
+
 
 # PDF Loading
 PyMuPDF  # used by PyPDFLoader
