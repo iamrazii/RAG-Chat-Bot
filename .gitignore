@@ -4,6 +4,9 @@ venv/
 # Ignore all files inside cache or temp folders
 __pycache__/
 temp/
+.devcontainer
+.devcontainer/
+
 
 # Ignore database or runtime folders
 db/
