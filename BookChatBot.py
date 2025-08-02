@@ -1,4 +1,3 @@
-
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_chroma import Chroma
 from langchain_google_genai import GoogleGenerativeAIEmbeddings, ChatGoogleGenerativeAI
@@ -9,7 +8,6 @@ from langchain.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnableMap, RunnableBranch
 from dotenv import load_dotenv
-from chromadb.config import Settings
 import os
 
 import nest_asyncio
@@ -26,16 +24,11 @@ def setup(pdf_path):
     chunks = splitter.split_documents(docs)
 
     embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
-    
-    client_settings = Settings(
-    chroma_db_impl="duckdb+parquet",
-    persist_directory=None,  # disables file system writes
-    )
+
     vector_store = Chroma(
         embedding_function=embeddings,
-        persist_directory=None,  
-        collection_name="pdf-chat",
-        client_settings=client_settings
+        persist_directory=None,  # Use in-memory (stateless) DB
+        collection_name="pdf-chat"
     )
     vector_store.add_documents(chunks)
 
