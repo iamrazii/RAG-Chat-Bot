@@ -7,10 +7,8 @@ langchain-chroma
 
 
 # Vector Store & Retrieval
-chromadb
 tiktoken
 rank-bm25
-pysqlite3-binary
 faiss-cpu
 
 
