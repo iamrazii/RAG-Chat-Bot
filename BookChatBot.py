@@ -9,6 +9,7 @@ from langchain.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnableMap, RunnableBranch
 from dotenv import load_dotenv
+from chromadb.config import Settings
 import os
 
 import nest_asyncio
@@ -25,10 +26,16 @@ def setup(pdf_path):
     chunks = splitter.split_documents(docs)
 
     embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
+    
+    client_settings = Settings(
+    chroma_db_impl="duckdb+parquet",
+    persist_directory=None,  # disables file system writes
+    )
     vector_store = Chroma(
         embedding_function=embeddings,
         persist_directory=None,  
         collection_name="pdf-chat"
+        client_settings=client_settings
     )
     vector_store.add_documents(chunks)
 
