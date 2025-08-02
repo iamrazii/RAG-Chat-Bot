@@ -1,0 +1,11 @@
+# Ignore the virtual environment
+venv/
+.env
+# Ignore all files inside cache or temp folders
+__pycache__/
+temp/
+
+# Ignore database or runtime folders
+db/
+chroma_db/
+logs/
